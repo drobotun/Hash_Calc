@@ -3094,7 +3094,7 @@ object AboutForm: TAboutForm
     Top = 11
     Width = 47
     Height = 12
-    Caption = '2.0 version'
+    Caption = '1.1 version'
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clSilver
     Font.Height = -9

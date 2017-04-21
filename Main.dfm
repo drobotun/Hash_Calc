@@ -1,10 +1,10 @@
 object MainForm: TMainForm
-  Left = 395
-  Top = 404
+  Left = 398
+  Top = 117
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = #1050#1072#1083#1082#1091#1083#1103#1090#1086#1088' '#1082#1086#1085#1090#1088#1086#1083#1100#1085#1099#1093' '#1089#1091#1084#1084
-  ClientHeight = 364
+  ClientHeight = 377
   ClientWidth = 516
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -149,7 +149,6 @@ object MainForm: TMainForm
     01FFFF8003FFFFC003FFFFF007FFFFFC07FFFFFE0FFFFFFF9FFFFFFFFFFF}
   OldCreateOrder = False
   Position = poDesktopCenter
-  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object LogoImage: TImage
@@ -4633,19 +4632,14 @@ object MainForm: TMainForm
     ShowHint = True
     OnClick = GOST94CopyButtonClick
   end
-  object Logo_3: TLabel
-    Left = 147
-    Top = 11
-    Width = 47
-    Height = 12
-    Caption = '2.0 version'
-    Font.Charset = RUSSIAN_CHARSET
-    Font.Color = clSilver
-    Font.Height = -9
-    Font.Name = 'Arial'
-    Font.Style = []
-    ParentFont = False
-    Transparent = True
+  object ExitButton: TButton
+    Left = 438
+    Top = 348
+    Width = 75
+    Height = 25
+    Caption = #1042#1099#1093#1086#1076
+    TabOrder = 0
+    OnClick = ExitButtonClick
   end
   object FileEdit: TEdit
     Left = 8
@@ -4653,7 +4647,7 @@ object MainForm: TMainForm
     Width = 473
     Height = 21
     ReadOnly = True
-    TabOrder = 0
+    TabOrder = 1
   end
   object FileButton: TButton
     Left = 486
@@ -4664,7 +4658,7 @@ object MainForm: TMainForm
     Caption = '...'
     ParentShowHint = False
     ShowHint = True
-    TabOrder = 1
+    TabOrder = 2
     OnClick = FileButtonClick
   end
   object MD5Edit: TEdit
@@ -4673,7 +4667,7 @@ object MainForm: TMainForm
     Width = 473
     Height = 21
     ReadOnly = True
-    TabOrder = 2
+    TabOrder = 3
   end
   object GOST256Edit: TEdit
     Left = 8
@@ -4681,7 +4675,7 @@ object MainForm: TMainForm
     Width = 473
     Height = 21
     ReadOnly = True
-    TabOrder = 3
+    TabOrder = 4
   end
   object CRC32Edit: TEdit
     Left = 8
@@ -4689,7 +4683,7 @@ object MainForm: TMainForm
     Width = 473
     Height = 21
     ReadOnly = True
-    TabOrder = 4
+    TabOrder = 5
   end
   object GOST512Edit: TEdit
     Left = 8
@@ -4697,7 +4691,7 @@ object MainForm: TMainForm
     Width = 473
     Height = 21
     ReadOnly = True
-    TabOrder = 5
+    TabOrder = 6
   end
   object GOST94Edit: TEdit
     Left = 8
@@ -4705,80 +4699,46 @@ object MainForm: TMainForm
     Width = 473
     Height = 21
     ReadOnly = True
-    TabOrder = 6
+    TabOrder = 7
   end
   object MD5Check: TCheckBox
     Left = 8
     Top = 134
     Width = 17
     Height = 17
-    TabOrder = 7
+    TabOrder = 8
   end
   object GOST256Check: TCheckBox
     Left = 8
     Top = 174
     Width = 17
     Height = 17
-    TabOrder = 8
+    TabOrder = 9
   end
   object GOST512Check: TCheckBox
     Left = 8
     Top = 214
     Width = 17
     Height = 17
-    TabOrder = 9
+    TabOrder = 10
   end
-  object GOST94Check: TCheckBox
+  object Gost94Check: TCheckBox
     Left = 8
     Top = 254
     Width = 17
     Height = 17
-    TabOrder = 10
+    TabOrder = 11
   end
   object CRC32Check: TCheckBox
     Left = 8
     Top = 294
     Width = 17
     Height = 17
-    TabOrder = 11
-  end
-  object StatusBar: TStatusBar
-    Left = 0
-    Top = 345
-    Width = 516
-    Height = 19
-    Panels = <
-      item
-        Text = #1053#1072#1095#1072#1083#1086' '#1088#1072#1089#1095#1077#1090#1072
-        Width = 95
-      end
-      item
-        Alignment = taCenter
-        Width = 56
-      end
-      item
-        Text = #1050#1086#1085#1077#1094' '#1088#1072#1089#1095#1077#1090#1072
-        Width = 90
-      end
-      item
-        Alignment = taCenter
-        Width = 56
-      end
-      item
-        Text = #1054#1073#1097#1077#1077' '#1074#1088#1077#1084#1103
-        Width = 85
-      end
-      item
-        Alignment = taCenter
-        Width = 56
-      end
-      item
-        Width = 50
-      end>
+    TabOrder = 12
   end
   object FilePopupMenu: TPopupMenu
-    Left = 40
-    Top = 5
+    Left = 8
+    Top = 341
     object ChooseFileMenu: TMenuItem
       Bitmap.Data = {
         36030000424D3603000000000000360000002800000010000000100000000100
@@ -4809,37 +4769,6 @@ object MainForm: TMainForm
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
       Caption = #1042#1099#1073#1088#1072#1090#1100' '#1092#1072#1081#1083
       OnClick = ChooseFileMenuClick
-    end
-    object ChekThread: TMenuItem
-      Bitmap.Data = {
-        36030000424D3603000000000000360000002800000010000000100000000100
-        18000000000000030000C40E0000C40E00000000000000000000FFFFFFFFFFFF
-        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-        FFFFFFFFFFFFFFFFFFFFFFFFFF7FBBD4007CAF0084B7008CBF0095C8009CCF00
-        A2D500A2D5009CCF0095C8008CBF0084B7007CAF7FBBD4FFFFFFFFFFFF0079AC
-        00B7EA00CCFF00CCFF00CCFF00CCFF00CCFF00CCFF00CCFF00CCFF00CCFF00CC
-        FF00B7EA0079ACFFFFFFFFFFFF007DB00DCFFF0DCFFF0DCFFF0DCFFF0DCFFF00
-        77AA3333330DCFFF0DCFFF0DCFFF0DCFFF0DCFFF007DB0FFFFFFFFFFFF7FBFD9
-        0FAAD91ED3FF1ED3FF1ED3FF1ED3FF0077AA3333331ED3FF1ED3FF1ED3FF1ED3
-        FF0FAAD97FBFD9FFFFFFFFFFFFFFFFFF0085B832D8FF32D8FF32D8FF32D8FF32
-        D8FF32D8FF32D8FF32D8FF32D8FF32D8FF0085B8FFFFFFFFFFFFFFFFFFFFFFFF
-        7FC4DD25B3DE49DDFF49DDFF49DDFF24AAD43E889949DDFF49DDFF49DDFF25B3
-        DE7FC4DDFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF008EC162E3FF62E3FF62E3FF19
-        92BF3F5F6662E3FF62E3FF62E3FF008EC1FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-        FFFFFF7FC9E23EBEE37BE8FF7BE8FF0077AA3333337BE8FF7BE8FF3EBEE37FC9
-        E2FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0098CB94EEFF94EEFF00
-        77AA33333394EEFF94EEFF0098CBFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-        FFFFFFFFFFFF7FCDE756C8E7ABF3FF0077AA333333ABF3FF56C8E77FCDE7FFFF
-        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00A1D4BFF8FFBF
-        F8FFBFF8FFBFF8FF00A1D4FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-        FFFFFFFFFFFFFFFFFF7FD1EB68D0EBD0FCFFD0FCFF68D0EB7FD1EBFFFFFFFFFF
-        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00A8DBDD
-        FFFFDDFFFF00A8DBFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-        FFFFFFFFFFFFFFFFFFFFFFFFBFEAF600AADD00AADDBFEAF6FFFFFFFFFFFFFFFF
-        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
-      Caption = #1055#1088#1080#1086#1088#1080#1090#1077#1090' '#1087#1086#1090#1086#1082#1072' '#1088#1072#1089#1095#1077#1090#1072
-      OnClick = ChekThreadClick
     end
     object N1: TMenuItem
       Caption = '-'
@@ -4879,7 +4808,7 @@ object MainForm: TMainForm
   object OpenFile: TOpenDialog
     Filter = #1042#1089#1077' '#1092#1072#1081#1083#1099' (*.*)|*.*'
     Title = #1042#1099#1073#1077#1088#1080#1090#1077' '#1092#1072#1081#1083' '#1076#1083#1103' '#1087#1086#1076#1089#1095#1077#1090#1072' '#1082#1086#1085#1090#1088#1086#1083#1100#1085#1086#1081' '#1089#1091#1084#1084#1099
-    Left = 8
-    Top = 5
+    Left = 40
+    Top = 341
   end
 end

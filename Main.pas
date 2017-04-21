@@ -5,10 +5,11 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls, Menus, Buttons,
-  Clipbrd, MD5Hash, CRC32Hash, GOST2012Hash, GOST94Hash, ComCtrls;
+  Clipbrd, MD5Hash, CRC32Hash, GOST2012Hash, GOST94Hash;
 
 type
   TMainForm = class(TForm)
+    ExitButton: TButton;
     LogoImage: TImage;
     Logo_1: TLabel;
     Logo_2: TLabel;
@@ -41,11 +42,8 @@ type
     MD5Check: TCheckBox;
     GOST256Check: TCheckBox;
     GOST512Check: TCheckBox;
-    GOST94Check: TCheckBox;
+    Gost94Check: TCheckBox;
     CRC32Check: TCheckBox;
-    ChekThread: TMenuItem;
-    Logo_3: TLabel;
-    StatusBar: TStatusBar;
     procedure ExitButtonClick(Sender: TObject);
     procedure FileMenuClick(Sender: TObject);
     procedure ExitMenuClick(Sender: TObject);
@@ -57,27 +55,18 @@ type
     procedure GOST94CopyButtonClick(Sender: TObject);
     procedure GOST256CopyButtonClick(Sender: TObject);
     procedure GOST512CopyButtonClick(Sender: TObject);
-    procedure ChekThreadClick(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
   end;
 
-procedure FormInit;
-procedure FormEnable;
-
 var
-  MainForm : TMainForm;
-  ThreadPriority : TThreadPriority;
+  MainForm: TMainForm;
 
 implementation
 
-uses CalcThread, About, ChoiseThread;
-
-var
-      CalcThread : TCalcThread;
+uses About;
 
 {$R *.dfm}
 
@@ -91,9 +80,6 @@ begin
       GOST94Edit.Text := '';
       CRC32Edit.Text := '';
       MD5Edit.Text := '';
-      StatusBar.Panels.Items[1].Text := '';
-      StatusBar.Panels.Items[3].Text := '';
-      StatusBar.Panels.Items[5].Text := '';
     end;
 end;
 
@@ -101,20 +87,22 @@ procedure FormEnable;
 begin
   with MainForm do
     begin
-      MD5Check.Enabled := true;
-      GOST256Check.Enabled := true;
-      GOST512Check.Enabled := true;
-      GOST94Check.Enabled := true;
-      CRC32Check.Enabled := true;
       FileEdit.Enabled := true;
       GOST256Edit.Enabled := true;
       GOST512Edit.Enabled := true;
       GOST94Edit.Enabled := true;
       CRC32Edit.Enabled := true;
       MD5Edit.Enabled := true;
+      GOST256Label.Enabled := true;
+      GOST512Label.Enabled := true;
+      GOST94Label.Enabled := true;
+      CRC32Label.Enabled := true;
+      MD5Label.Enabled := true;
+      Filelabel.Enabled := true;
       FileButton.Enabled := true;
       FileMenu.Enabled := true;
       AboutMenu.Enabled := true;
+      ExitButton.Enabled := true;
     end;
 end;
 
@@ -122,20 +110,22 @@ procedure FormDisable;
 begin
   with MainForm do
     begin
-      MD5Check.Enabled := false;
-      GOST256Check.Enabled := false;
-      GOST512Check.Enabled := false;
-      GOST94Check.Enabled := false;
-      CRC32Check.Enabled := false;
       FileEdit.Enabled := false;
       GOST256Edit.Enabled := false;
       GOST512Edit.Enabled := false;
       GOST94Edit.Enabled := false;
       CRC32Edit.Enabled := false;
       MD5Edit.Enabled := false;
+      GOST256Label.Enabled := false;
+      GOST512Label.Enabled := false;
+      GOST94Label.Enabled := false;
+      CRC32Label.Enabled := false;
+      MD5Label.Enabled := false;
+      Filelabel.Enabled := false;
       FileButton.Enabled := false;
       FileMenu.Enabled := false;
       AboutMenu.Enabled := false;
+      ExitButton.Enabled := false;
     end;
 end;
 
@@ -149,16 +139,29 @@ begin
     begin
       if OpenFile.Execute then
         begin
-          CalcThread := TCalcThread.Create(true);
-          CalcThread.Priority := ThreadPriority;
-          CalcThread.Resume;
-          FileEdit.Text := OpenFile.FileName;
-          CalcThread.FreeOnTerminate := true;
+          FormInit;
+          try
+            if MD5Check.Checked then
+              MD5Edit.Text := MD5DigestToStr(MD5File(OpenFile.FileName));
+            if GOST256Check.Checked then
+              GOST256Edit.Text := GOST2012_HashFileToString(OpenFile.FileName, 256);;
+            if GOST512Check.Checked then
+              GOST512Edit.Text := GOST2012_HashFileToString(OpenFile.FileName, 512);
+            if GOST94Check.Checked then
+              GOST94Edit.Text :=  GOST94DigestToStr(GOST94File(OpenFile.FileName));
+            if CRC32Check.Checked then
+              CRC32Edit.Text := IntToHex(CRC32File(OpenFile.FileName), 8);
+            FileEdit.Text := OpenFile.FileName;
+          except
+            MessageBox(0,'Ошибка чтения файла', 'Hash Calc',
+                     MB_OK or MB_ICONWARNING);
+          end;
         end;
       end
     else MessageBox(0,'Не задан алгоритм контрольного суммирования',
                    'Hash Calc',
                    MB_OK or MB_ICONWARNING);
+  FormEnable;
 end;
 
 procedure TMainForm.ExitButtonClick(Sender: TObject);
@@ -215,16 +218,6 @@ end;
 procedure TMainForm.GOST512CopyButtonClick(Sender: TObject);
 begin
   ClipBoard.AsText := GOST512Edit.Text;
-end;
-
-procedure TMainForm.ChekThreadClick(Sender: TObject);
-begin
-  ChoiseThreadForm.ShowModal;
-end;
-
-procedure TMainForm.FormCreate(Sender: TObject);
-begin
-  ThreadPriority := tpNormal;
 end;
 
 end.
