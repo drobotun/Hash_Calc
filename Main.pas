@@ -156,9 +156,10 @@ begin
           CalcThread.FreeOnTerminate := true;
         end;
       end
-    else MessageBox(0,'Не задан алгоритм контрольного суммирования',
+    else MessageBox(0,'ГЌГҐ Г§Г Г¤Г Г­ Г Г«ГЈГ®Г°ГЁГІГ¬ ГЄГ®Г­ГІГ°Г®Г«ГјГ­Г®ГЈГ® Г±ГіГ¬Г¬ГЁГ°Г®ГўГ Г­ГЁГї',
                    'Hash Calc',
                    MB_OK or MB_ICONWARNING);
+  FormEnable;
 end;
 
 procedure TMainForm.ExitButtonClick(Sender: TObject);
