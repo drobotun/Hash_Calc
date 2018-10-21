@@ -156,7 +156,7 @@ begin
           CalcThread.FreeOnTerminate := true;
         end;
       end
-    else MessageBox(0,'Do not specify the hash algorithm',
+    else MessageBox(0,'Не выбран алгоритм хеширования',
                    'Hash Calc',
                    MB_OK or MB_ICONWARNING);
   FormEnable;
