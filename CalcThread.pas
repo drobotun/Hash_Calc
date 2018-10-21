@@ -52,7 +52,7 @@ begin
         CRC32Edit.Text := IntToHex(CRC32File(OpenFile.FileName), 8);
     end;
   except
-    MessageBox(0,'Ошибка чтения файла', 'Hash Calc',
+    MessageBox(0,'РћС€РёР±РєР° С‡С‚РµРЅРёСЏ С„Р°Р№Р»Р°', 'Hash Calc',
                      MB_OK or MB_ICONWARNING);
     FormInit;
   end;
