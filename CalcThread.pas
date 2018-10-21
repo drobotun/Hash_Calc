@@ -50,17 +50,17 @@ begin
         GOST94Edit.Text :=  GOST94DigestToStr(GOST94File(OpenFile.FileName));
       if CRC32Check.Checked then
         CRC32Edit.Text := IntToHex(CRC32File(OpenFile.FileName), 8);
+    EndTime := Time;
+    CalcTime := EndTime - BeginTime;
+    MainForm.StatusBar.Panels.Items[3].Text := TimeToStr(EndTime);
+    MainForm.StatusBar.Panels.Items[5].Text := TimeToStr(CalcTime);
     end;
   except
-    MessageBox(0,'РћС€РёР±РєР° С‡С‚РµРЅРёСЏ С„Р°Р№Р»Р°', 'Hash Calc',
-                     MB_OK or MB_ICONWARNING);
     FormInit;
+    MessageBox(0,'Ошибка чтения файла', 'Hash Calc',
+                     MB_OK or MB_ICONWARNING);
   end;
   FormEnable;
-  EndTime := Time;
-  CalcTime := EndTime - BeginTime;
-  MainForm.StatusBar.Panels.Items[3].Text := TimeToStr(EndTime);
-  MainForm.StatusBar.Panels.Items[5].Text := TimeToStr(CalcTime);
 end;
 
 end.
